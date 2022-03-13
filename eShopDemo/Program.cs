@@ -1,7 +1,12 @@
+using eShopData.IService;
+using eShopData.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+builder.Services.AddTransient<IUserService, UserService>();
 
 var app = builder.Build();
 
