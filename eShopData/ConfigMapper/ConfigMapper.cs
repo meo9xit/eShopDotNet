@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace eShopData.ConfigMapper
 {
-    internal class ConfigMapper : Profile
+    public class ConfigMapper : Profile
     {
         public ConfigMapper()
         {

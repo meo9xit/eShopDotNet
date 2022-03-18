@@ -1,3 +1,5 @@
+using AutoMapper;
+using eShopData.ConfigMapper;
 using eShopData.IService;
 using eShopData.Services;
 
@@ -5,8 +7,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-
+var config = new MapperConfiguration(cfg =>
+{
+    cfg.AddProfile<ConfigMapper>();
+});
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddSingleton(sp => config.CreateMapper());
 
 var app = builder.Build();
 

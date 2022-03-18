@@ -9,11 +9,11 @@ namespace eShopData.IService
 {
     public interface IUserService
     {
-        UserModel GetById(string id);
-        UserModel Login(string username, string password);
-        UserModel Insert(UserModel model);
-        UserModel Update(UserModel model);
-        void Delete(string id);
+        Task<UserModel> GetById(string id);
+        Task<UserModel> Login(string username, string password);
+        Task<UserModel> Insert(UserModel model);
+        Task<UserModel> Update(UserModel model);
+        void Delete(UserModel model);
         
     }
 }
