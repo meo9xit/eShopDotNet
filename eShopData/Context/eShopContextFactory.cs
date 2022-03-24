@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using eShopData.Utils;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -14,13 +15,7 @@ namespace eShopData.Context
         public eShopContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<eShopContext>();
-
-            IConfigurationRoot configuration = new ConfigurationBuilder()
-            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-            .AddJsonFile("appsettings.json")
-            .Build();
-            optionsBuilder.UseSqlServer(configuration.GetConnectionString("eShopContext"));
-
+            optionsBuilder.UseSqlServer(DbContextHelper.GetConnectionString());
             return new eShopContext(optionsBuilder.Options);
         }
     }

@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShopDemo", "eShopDemo.cspr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShopData", "..\eShopData\eShopData.csproj", "{A24E7C5A-FF25-422B-90E3-729FEF5AC3BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Admin.eShopDemo", "..\Admin.eShopDemo\Admin.eShopDemo.csproj", "{9580E5F7-5D43-4AE5-8AF5-3165595008AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Admin.eShopDemo", "..\Admin.eShopDemo\Admin.eShopDemo.csproj", "{9580E5F7-5D43-4AE5-8AF5-3165595008AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
