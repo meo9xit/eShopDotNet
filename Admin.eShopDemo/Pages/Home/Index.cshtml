@@ -1,0 +1,11 @@
+﻿@model 
+
+@{
+    ViewData["Title"] = "Quản lý user";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+    @{foreach(var user in ViewModel)}
+</table>
+
