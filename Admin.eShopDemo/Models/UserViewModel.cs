@@ -1,9 +1,9 @@
-﻿using eShopData.Entities;
+﻿using eShopData.DTOs;
 
 namespace Admin.eShopDemo.Models
 {
     public class UserViewModel
     {
-        public IEnumerable<User> ListUsers { get; set; }
+        public IEnumerable<UserModel> ListUsers { get; set; } = new List<UserModel>();
     }
 }

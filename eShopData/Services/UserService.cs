@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using eShopData.Context;
+using eShopData.Core.Collections;
 using eShopData.Core.IData;
 using eShopData.DTOs;
 using eShopData.DTOs.User;
@@ -23,23 +24,28 @@ namespace eShopData.Services
         private readonly SignInManager<User> _signInManager;
         private readonly IMapper _mapper;
         private readonly IConfiguration _config;
+        private readonly IRepository<User> _userRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
         public UserService(UserManager<User> userManager,
             RoleManager<Role> roleManager,
             SignInManager<User> signInManager,
             IMapper mapper,
-            IConfiguration config)
+            IConfiguration config,
+            IUnitOfWork unitOfWork)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
             _mapper = mapper;
             _config = config;
+            _unitOfWork = unitOfWork;
+            _userRepository = _unitOfWork.GetRepository<User>();
         }
 
-        public async Task<Result<bool>> Delete(UserModel model)
+        public async Task<Result<bool>> Delete(Guid id)
         {
-            var user = await _userManager.FindByIdAsync(model.Id.ToString());
+            var user = await _userManager.FindByIdAsync(id.ToString());
             if (user == null)
             {
                 return new ErrorResult<bool>("User không tồn tại");
@@ -112,6 +118,13 @@ namespace eShopData.Services
             if (!result.Succeeded)
                 return new ErrorResult<UserModel>();
             return new SuccessResult<UserModel>() { Data = model};
+        }
+
+        public async Task<Result<IPagedList<UserModel>>> GetPaging(int page = 1)
+        {
+            var list = await _userRepository.GetPagedListAsync(p => !p.IsDeleted, null, null, page-1);
+            var ret = _mapper.Map<IPagedList<UserModel>>(list);
+            return new SuccessResult<IPagedList<UserModel>> { Data = ret};
         }
     }
 }
