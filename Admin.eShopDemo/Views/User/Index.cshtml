@@ -22,11 +22,11 @@
         {
 
             <tr>
-                <td>@user.UserName</td>
-                <td>@user.FullName</td>
+                <td><input type="text" name="UserName" value = "@user.UserName"></td>
+                <td><input type="text" name="FullName" value = "@user.FullName"></td>
                 <td>
                     <button><i class="fa-solid fa-pen-to-square"></i></button>
-                    <button><i class="fa-solid fa-circle-trash"></i></button>
+                    <form action="/delete" method="post"><input type="hidden" name="id" value=@user.Id /><button><i class="fa-solid fa-circle-trash"></i></button></form>
                 </td>
             </tr>
         }
