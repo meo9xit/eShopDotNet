@@ -23,9 +23,10 @@
 
             <tr>
                 <td><input type="text" name="UserName" value = "@user.UserName"></td>
-                <td><input type="text" name="FullName" value = "@user.FullName"></td>
+                <td>@Html.DisplayFor(item => user.UserName)</td>
+                <td>@Html.DisplayFor(item => user.FullName)</td>
                 <td>
-                    <button><i class="fa-solid fa-pen-to-square"></i></button>
+                    <a href = "@Url.Action("Update","User", new{Id = user.Id})"><i class="fa-solid fa-pen-to-square"></i></a>
                     <form action="/delete" method="post"><input type="hidden" name="id" value=@user.Id /><button><i class="fa-solid fa-circle-trash"></i></button></form>
                 </td>
             </tr>
