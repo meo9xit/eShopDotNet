@@ -1,4 +1,5 @@
 ﻿using Admin.eShopDemo.Models;
+using Admin.eShopDemo.Models.User;
 using eShopData.DTOs;
 using eShopData.IService;
 using Microsoft.AspNetCore.Mvc;
@@ -38,6 +39,24 @@ namespace Admin.eShopDemo.Controllers
         {
             var result = await _userService.Insert(model);
             return View(result);
+        }
+
+        [HttpGet("/user/{id}")]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var user = await _userService.GetById(id);
+            return View(new UpdateUserViewModel(user.Data.FullName, user.Data.Email));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(UserModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                await _userService.Update(model);
+                return RedirectToAction("Index","User");
+            }
+            return View(new UpdateUserViewModel(model.FullName, model.Email));
         }
     }
 }
