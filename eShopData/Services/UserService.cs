@@ -63,7 +63,7 @@ namespace eShopData.Services
             return new SuccessResult<UserModel>() { Data = _mapper.Map<UserModel>(entity) };
         }
 
-        public async Task<Result<UserModel>> Insert(UserModel model)
+        public async Task<Result<UserModel>> Insert(RegisterModel model)
         {
             var user = await _userManager.FindByNameAsync(model.UserName);
             if (user != null)
@@ -72,7 +72,7 @@ namespace eShopData.Services
             }
             
             var entity = _mapper.Map<User>(model);
-            var result = await _userManager.CreateAsync(entity);
+            var result = await _userManager.CreateAsync(entity, model.Password);
             if(!result.Succeeded)
                 return new ErrorResult<UserModel>();
           

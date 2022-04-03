@@ -9,7 +9,7 @@ namespace eShopData.IService
     {
         Task<Result<UserModel>> GetById(Guid id);
         Task<Result<string>> AuthentiCate(LoginModel login);
-        Task<Result<UserModel>> Insert(UserModel model);
+        Task<Result<UserModel>> Insert(RegisterModel model);
         Task<Result<UserModel>> Update(UserModel model);
         Task<Result<bool>> Delete(Guid id);
         Task<Result<IPagedList<UserModel>>> GetPaging(int page = 1);

@@ -33,6 +33,11 @@ builder.Services.AddAuthentication(opt =>
     opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 })
+.AddCookie(options =>
+{
+    options.LoginPath = "Login/";
+    options.AccessDeniedPath = "Home/";
+})
 .AddJwtBearer(options =>
 {
     options.RequireHttpsMetadata = false;

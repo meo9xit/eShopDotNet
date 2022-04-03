@@ -1,6 +1,7 @@
 ﻿using Admin.eShopDemo.Models;
 using Admin.eShopDemo.Models.User;
 using eShopData.DTOs;
+using eShopData.DTOs.User;
 using eShopData.IService;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,7 +36,7 @@ namespace Admin.eShopDemo.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(UserModel model)
+        public async Task<IActionResult> Register(RegisterModel model)
         {
             var result = await _userService.Insert(model);
             return View(result);
