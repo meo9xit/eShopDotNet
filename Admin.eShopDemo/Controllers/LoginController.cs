@@ -2,6 +2,7 @@
 using eShopData.IService;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
@@ -11,6 +12,7 @@ using System.Text;
 
 namespace Admin.eShopDemo.Controllers
 {
+    [AllowAnonymous]
     public class LoginController : Controller
     {
         private readonly IUserService _userService;
@@ -27,7 +29,7 @@ namespace Admin.eShopDemo.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login([FromBody] LoginModel model)
+        public async Task<IActionResult> Login(LoginModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -45,12 +47,18 @@ namespace Admin.eShopDemo.Controllers
                 IsPersistent = false
             };
             HttpContext.Session.SetString("Token", result.Data);
-            await HttpContext.SignInAsync(
-                        CookieAuthenticationDefaults.AuthenticationScheme,
-                        userPrincipal,
-                        authProperties);
+            //await HttpContext.SignInAsync(
+            //            CookieAuthenticationDefaults.AuthenticationScheme,
+            //            userPrincipal,
+            //            authProperties);
+            return RedirectToAction("index","home");
+        }
 
-            return RedirectToAction("Index", "Home");
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            HttpContext.Session.Clear();
+            return Ok();
         }
 
         private ClaimsPrincipal ValidateToken(string jwtToken)

@@ -4,7 +4,7 @@
 *@
 @model UserViewModel
 @{
-     ViewData["Title"] = "Quản lý user";
+    ViewData["Title"] = "Quản lý user";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
@@ -13,25 +13,32 @@
         <tr>
             <th>User name</th>
             <th>Tên đầy đủ</th>
+            <th>Email</th>
             <th>Thao tác</th>
         </tr>
     </thead>
     <tbody>
-    @{
-        foreach(var user in Model.ListUsers)
-        {
+        @{
+            foreach (var user in Model.ListUsers)
+            {
 
-            <tr>
-                <td><input type="text" name="UserName" value = "@user.UserName"></td>
-                <td>@Html.DisplayFor(item => user.UserName)</td>
-                <td>@Html.DisplayFor(item => user.FullName)</td>
-                <td>
-                    <a href = "@Url.Action("Update","User", new{Id = user.Id})"><i class="fa-solid fa-pen-to-square"></i></a>
-                    <form action="/delete" method="post"><input type="hidden" name="id" value=@user.Id /><button><i class="fa-solid fa-circle-trash"></i></button></form>
-                </td>
-            </tr>
+                <tr>
+                    <td>@Html.DisplayFor(item => user.UserName)</td>
+                    <td>@Html.DisplayFor(item => user.FullName)</td>
+                    <td>@Html.DisplayFor(item => user.Email)</td>
+                    <td>
+                        <form action="/user/delete" method="post">
+                            <a class="btn" href="@Url.Action("Edit","User", new{Id = user.Id})"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <input type="hidden" name="id" value=@user.Id />
+                            <button class="btn" onclick="return confirm('Bạn có chắc chắn chưa?')">
+                                <i class="fa fa-trash"></i>
+                            </button>
+
+                        </form>
+                    </td>
+                </tr>
+            }
+
         }
-
-    }
     </tbody>
 </table>

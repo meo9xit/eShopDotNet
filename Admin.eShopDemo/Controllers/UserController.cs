@@ -3,10 +3,12 @@ using Admin.eShopDemo.Models.User;
 using eShopData.DTOs;
 using eShopData.DTOs.User;
 using eShopData.IService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Admin.eShopDemo.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         private readonly IUserService _userService;
@@ -15,7 +17,7 @@ namespace Admin.eShopDemo.Controllers
         {
             _userService = userService;
         }
-        [HttpGet]
+        [HttpGet("users")]
         public async Task<IActionResult> Index(int page = 1)
         {
             var listUser = await _userService.GetPaging(page);
@@ -26,10 +28,10 @@ namespace Admin.eShopDemo.Controllers
         public async Task<IActionResult> Delete(Guid id)
         {
             var result = await _userService.Delete(id);
-            return View(result);
+            return RedirectToAction("index");
         }
 
-        [HttpGet]
+        [HttpGet("user/register")]
         public async Task<IActionResult> Register()
         {
             return View();
@@ -39,11 +41,11 @@ namespace Admin.eShopDemo.Controllers
         public async Task<IActionResult> Register(RegisterModel model)
         {
             var result = await _userService.Insert(model);
-            return View(result);
+            return RedirectToAction("Index");
         }
 
-        [HttpGet("/user/{id}")]
-        public async Task<IActionResult> Edit(Guid id)
+        [HttpGet("user/{id}")]
+        public async Task<IActionResult> Edit([FromRoute] Guid id)
         {
             var user = await _userService.GetById(id);
             return View(new UpdateUserViewModel(user.Data.FullName, user.Data.Email));
@@ -55,9 +57,9 @@ namespace Admin.eShopDemo.Controllers
             if (!ModelState.IsValid)
             {
                 await _userService.Update(model);
-                return RedirectToAction("Index","User");
+                
             }
-            return View(new UpdateUserViewModel(model.FullName, model.Email));
+            return RedirectToAction("Index");
         }
     }
 }

@@ -1,11 +1,7 @@
 ﻿using AutoMapper;
 using eShopData.DTOs;
+using eShopData.DTOs.User;
 using eShopData.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace eShopData.ConfigMapper
 {
@@ -14,6 +10,8 @@ namespace eShopData.ConfigMapper
         public ConfigMapper()
         {
             CreateMap<User,UserModel>().ReverseMap();
+            CreateMap<User, RegisterModel>().ReverseMap();
+            CreateMap<User, LoginModel>().ReverseMap();
         }
     }
 }

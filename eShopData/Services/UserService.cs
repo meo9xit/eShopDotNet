@@ -123,8 +123,9 @@ namespace eShopData.Services
         public async Task<Result<IPagedList<UserModel>>> GetPaging(int page = 1)
         {
             var list = await _userRepository.GetPagedListAsync(p => !p.IsDeleted, null, null, page-1);
-            var ret = _mapper.Map<IPagedList<UserModel>>(list);
-            return new SuccessResult<IPagedList<UserModel>> { Data = ret};
+            var ret = new List<UserModel>();
+            list.Items.ToList().ForEach(u => ret.Add(_mapper.Map<UserModel>(u)));
+            return new SuccessResult<IPagedList<UserModel>> { Data = new PagedList<UserModel>() { Items = ret } };
         }
     }
 }

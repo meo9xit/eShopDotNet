@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eShopData.Context;
 
@@ -11,9 +12,10 @@ using eShopData.Context;
 namespace eShopData.Migrations
 {
     [DbContext(typeof(eShopContext))]
-    partial class eShopContextModelSnapshot : ModelSnapshot
+    [Migration("20220410100843_update-10-4")]
+    partial class update104
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
