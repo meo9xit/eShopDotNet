@@ -5,10 +5,13 @@
         public string FullName { get; set; }
         public string Email { get; set; }
 
-        public UpdateUserViewModel(string name, string email)
+        public string UserName { get; set; }
+
+        public UpdateUserViewModel(string name, string email, string userName)
         {
             FullName = name;
             Email = email;
+            UserName = userName;
         }
     }
 }

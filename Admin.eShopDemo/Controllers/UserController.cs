@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Admin.eShopDemo.Controllers
 {
-    [Authorize]
     public class UserController : Controller
     {
         private readonly IUserService _userService;
@@ -31,12 +30,14 @@ namespace Admin.eShopDemo.Controllers
             return RedirectToAction("index");
         }
 
+        [AllowAnonymous]
         [HttpGet("user/register")]
         public async Task<IActionResult> Register()
         {
             return View();
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Register(RegisterModel model)
         {
@@ -44,11 +45,11 @@ namespace Admin.eShopDemo.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet("user/{id}")]
-        public async Task<IActionResult> Edit([FromRoute] Guid id)
+        [HttpGet]
+        public async Task<IActionResult> Edit(Guid id)
         {
             var user = await _userService.GetById(id);
-            return View(new UpdateUserViewModel(user.Data.FullName, user.Data.Email));
+            return View(new UpdateUserViewModel(user.Data.FullName, user.Data.Email, user.Data.UserName));
         }
 
         [HttpPost]
@@ -56,10 +57,12 @@ namespace Admin.eShopDemo.Controllers
         {
             if (!ModelState.IsValid)
             {
-                await _userService.Update(model);
-                
+                return StatusCode(500);
             }
-            return RedirectToAction("Index");
+            var result = await _userService.Update(model);
+            if (result.Success)
+                return RedirectToAction("Index");
+            return StatusCode(500);
         }
     }
 }
