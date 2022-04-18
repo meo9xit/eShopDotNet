@@ -24,6 +24,7 @@ namespace Admin.eShopDemo.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var result = await _userService.Delete(id);

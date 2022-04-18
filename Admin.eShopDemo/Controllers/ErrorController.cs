@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 
 namespace Admin.eShopDemo.Controllers
 {
@@ -7,6 +8,7 @@ namespace Admin.eShopDemo.Controllers
     {
         public IActionResult Index(int statusCode)
         {
+            ViewData["Title"] = ReasonPhrases.GetReasonPhrase(statusCode);
             return View("NotFound");
         }
     }

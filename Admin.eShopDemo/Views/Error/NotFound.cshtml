@@ -3,9 +3,8 @@
 *@
 
 @{
-    ViewData["Title"] = "Not Found";
     Layout = "";
 }
 
-<h1>Not found</h1>
+<h1>@ViewData["Title"]</h1>
 @Html.ActionLink("Back to home", "index","home")
